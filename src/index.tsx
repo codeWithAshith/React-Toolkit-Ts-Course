@@ -3,17 +3,18 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import TodoComponent from "./components/Todo.component";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-// Tailwind setup - https://tailwindcss.com/docs/guides/create-react-app
+// npm install react-icons --save
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <TodoComponent/>
     </Provider>
   </React.StrictMode>
 );
