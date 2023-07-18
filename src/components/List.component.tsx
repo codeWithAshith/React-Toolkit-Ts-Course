@@ -22,7 +22,7 @@ const ListComponent = ({ setItem }: SetInputState) => {
             <div
               className="text-gray-900"
               onClick={() => {
-                dispatch(removeTodo(todo));
+                setItem(todo);
               }}
             >
               <GrEdit />
