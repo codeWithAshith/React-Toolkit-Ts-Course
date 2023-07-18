@@ -1,10 +1,12 @@
 import React from "react";
 import { GrEdit } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { removeTodo } from "../store/features/todoSlice";
 
 const ListComponent = () => {
+  const dispatch = useDispatch();
   const todos = useSelector((state: RootState) => state.todoReducer.todos);
 
   return (
@@ -19,7 +21,12 @@ const ListComponent = () => {
             <div className="text-gray-900">
               <GrEdit />
             </div>
-            <div className="text-red-500">
+            <div
+              className="text-red-500"
+              onClick={() => {
+                dispatch(removeTodo(todo));
+              }}
+            >
               <RiDeleteBin6Line />
             </div>
           </div>

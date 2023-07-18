@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { addTodo } from "../store/features/todoSlice";
+import { addTodo, editTodo } from "../store/features/todoSlice";
 
 const InputComponent = () => {
   const [item, setItem] = useState("");
