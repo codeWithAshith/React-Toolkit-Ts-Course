@@ -4,8 +4,9 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { removeTodo } from "../store/features/todoSlice";
+import { SetInputState } from "../interface/AppInterface";
 
-const ListComponent = () => {
+const ListComponent = ({ setItem }: SetInputState) => {
   const dispatch = useDispatch();
   const todos = useSelector((state: RootState) => state.todoReducer.todos);
 
@@ -18,7 +19,12 @@ const ListComponent = () => {
         >
           <p>{todo.item}</p>
           <div className="flex flex-row gap-4">
-            <div className="text-gray-900">
+            <div
+              className="text-gray-900"
+              onClick={() => {
+                dispatch(removeTodo(todo));
+              }}
+            >
               <GrEdit />
             </div>
             <div

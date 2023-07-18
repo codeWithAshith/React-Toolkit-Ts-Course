@@ -1,13 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { addTodo, editTodo } from "../store/features/todoSlice";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../store/features/todoSlice";
+import { InputState } from "../interface/AppInterface";
 
-const InputComponent = () => {
-  const [item, setItem] = useState("");
-
+const InputComponent = ({ item, setItem }: InputState) => {
   const dispatch = useDispatch();
-  const todos = useSelector((state: RootState) => state.todoReducer.todos);
 
   return (
     <div>
@@ -15,7 +12,7 @@ const InputComponent = () => {
         type="text"
         placeholder="Add Todo..."
         className="border px-2 mx-2 rounded"
-        value={item}
+        value={item?.item}
         onChange={(e) => {
           setItem(e.target.value);
         }}
@@ -24,7 +21,12 @@ const InputComponent = () => {
         className="border rounded px-2 bg-blue-500 text-white"
         onClick={() => {
           dispatch(
-            addTodo({ id: todos.length + 1, item: item, isCompleted: false })
+            addTodo({
+              // to fix duplicate id issue.
+              id: Date.now(),
+              item: item.item,
+              isCompleted: false,
+            })
           );
           setItem("");
         }}

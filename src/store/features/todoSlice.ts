@@ -1,13 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
-interface Todo {
-  id: number;
-  item: string;
-  isCompleted: boolean;
-}
-interface Todos {
-  todos: Todo[];
-}
+import { Todo, Todos } from "../../interface/AppInterface";
 
 const initialState: Todos = {
   todos: [],
@@ -23,7 +15,14 @@ export const todoSlice = createSlice({
     removeTodo: (state, action: PayloadAction<Todo>) => {
       state.todos = state.todos.filter((todo) => todo.id !== action.payload.id);
     },
-    editTodo: (state, action: PayloadAction<Todo>) => {},
+    editTodo: (state, action: PayloadAction<Todo>) => {
+      state.todos = state.todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return action.payload;
+        }
+        return todo;
+      });
+    },
   },
 });
 
