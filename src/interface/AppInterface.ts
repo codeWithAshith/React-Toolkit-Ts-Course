@@ -7,7 +7,8 @@ export interface Todo {
 }
 
 export interface Todos {
-  todos: Todo[];
+  todos: Array<Todo>;
+  loading?: boolean;
 }
 
 export interface InputState {

@@ -9,12 +9,15 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-// npm install react-icons --save
+// Redux Thunk: Allows you to write asynchronous logic in your Redux actions.
+// Axios : A simple promise based HTTP client for the browser and node.js
+
+// npm install redux-thunk axios
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <TodoComponent/>
+      <TodoComponent />
     </Provider>
   </React.StrictMode>
 );

@@ -1,31 +1,34 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Todo, Todos } from "../../interface/AppInterface";
+import axios from "../../utils/config";
 
 const initialState: Todos = {
   todos: [],
+  loading: false,
 };
 
-export const todoSlice = createSlice({
-  name: "todo",
-  initialState,
-  reducers: {
-    addTodo: (state, action: PayloadAction<Todo>) => {
-      state.todos.push(action.payload);
-    },
-    removeTodo: (state, action: PayloadAction<Todo>) => {
-      state.todos = state.todos.filter((todo) => todo.id !== action.payload.id);
-    },
-    editTodo: (state, action: PayloadAction<Todo>) => {
-      state.todos = state.todos.map((todo) => {
-        if (todo.id === action.payload.id) {
-          return action.payload;
-        }
-        return todo;
-      });
-    },
-  },
+export const getAllTodos = createAsyncThunk("todos/getAll", async () => {
+  const res = await axios.get("/todos");
+  const data: Todo[] = await res.data;
+  return data;
 });
 
-export const { addTodo, removeTodo, editTodo } = todoSlice.actions;
+export const todoSlice = createSlice({
+  name: "todos",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(getAllTodos.pending, (state: Todos) => {
+      state.loading = true;
+    });
+    builder.addCase(getAllTodos.fulfilled, (state: Todos, { payload }) => {
+      state.loading = false;
+      state.todos = payload;
+    });
+    builder.addCase(getAllTodos.rejected, (state: Todos) => {
+      state.loading = false;
+    });
+  },
+});
 
 export default todoSlice.reducer;

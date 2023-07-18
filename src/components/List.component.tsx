@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GrEdit } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { removeTodo } from "../store/features/todoSlice";
+import { AppDispatch, RootState } from "../store/store";
 import { SetInputState } from "../interface/AppInterface";
+import { getAllTodos } from "../store/features/todoSlice";
 
 const ListComponent = ({ setItem }: SetInputState) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const todos = useSelector((state: RootState) => state.todoReducer.todos);
+
+  useEffect(() => {
+    dispatch(getAllTodos());
+  }, []);
 
   return (
     <div className="flex flex-col items-center w-2/4 my-10">
@@ -22,6 +26,7 @@ const ListComponent = ({ setItem }: SetInputState) => {
             <div
               className="text-gray-900"
               onClick={() => {
+                console.log(todo);
                 setItem(todo);
               }}
             >
@@ -30,7 +35,7 @@ const ListComponent = ({ setItem }: SetInputState) => {
             <div
               className="text-red-500"
               onClick={() => {
-                dispatch(removeTodo(todo));
+                // dispatch(removeTodo(todo));
               }}
             >
               <RiDeleteBin6Line />

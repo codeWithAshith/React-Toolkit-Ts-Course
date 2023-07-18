@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addTodo, editTodo } from "../store/features/todoSlice";
+// import { addTodo, editTodo } from "../store/features/todoSlice";
 import { InputState } from "../interface/AppInterface";
 
 const InputComponent = ({ item, setItem }: InputState) => {
@@ -22,14 +22,14 @@ const InputComponent = ({ item, setItem }: InputState) => {
         onClick={() => {
           console.log(item);
           if (item.id === 0) {
-            dispatch(
-              addTodo({
-                ...item,
-                id: Date.now(),
-              })
-            );
+            // dispatch(
+            //   addTodo({
+            //     ...item,
+            //     id: Date.now(),
+            //   })
+            // );
           } else {
-            dispatch(editTodo(item));
+            // dispatch(editTodo(item));
           }
           setItem({
             id: 0,
