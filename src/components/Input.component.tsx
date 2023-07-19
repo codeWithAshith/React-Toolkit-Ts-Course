@@ -1,10 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 // import { addTodo, editTodo } from "../store/features/todoSlice";
 import { InputState } from "../interface/AppInterface";
+import { addTodo, updateTodo } from "../store/features/todoSlice";
+import { useAppDispatch } from "../store/store";
 
 const InputComponent = ({ item, setItem }: InputState) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <div>
@@ -20,16 +21,15 @@ const InputComponent = ({ item, setItem }: InputState) => {
       <button
         className="border rounded px-2 bg-blue-500 text-white"
         onClick={() => {
-          console.log(item);
           if (item.id === 0) {
-            // dispatch(
-            //   addTodo({
-            //     ...item,
-            //     id: Date.now(),
-            //   })
-            // );
+            dispatch(
+              addTodo({
+                ...item,
+                id: Date.now(),
+              })
+            );
           } else {
-            // dispatch(editTodo(item));
+            dispatch(updateTodo(item));
           }
           setItem({
             id: 0,
@@ -38,7 +38,7 @@ const InputComponent = ({ item, setItem }: InputState) => {
           });
         }}
       >
-        Add Todo
+        {item.id === 0 ? "Add Todo" : "Edit Todo"}
       </button>
     </div>
   );

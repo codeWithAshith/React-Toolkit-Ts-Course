@@ -9,6 +9,7 @@ export interface Todo {
 export interface Todos {
   todos: Array<Todo>;
   loading?: boolean;
+  error: string | null;
 }
 
 export interface InputState {
